@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     libxrender1 \
     libxss1 \
     libxtst6 \
+    libxkbcommon0 \
     xdg-utils \
     --no-install-recommends
 

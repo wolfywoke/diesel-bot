@@ -16,11 +16,14 @@ const client = new Client({
   }
 });
 
-client.on('qr', async (qr) => {
-  console.log("Generating QR image...");
-  const url = await QRCode.toDataURL(qr);
-  console.log("OPEN THIS IN YOUR BROWSER:");
-  console.log(url);
+client.on('message', async message => {
+  const chat = await message.getChat();
+
+  if (chat.isGroup) {
+    console.log("GROUP MESSAGE:");
+    console.log("Group Name:", chat.name);
+    console.log("Message:", message.body);
+  }
 });
 
 client.on('ready', () => {

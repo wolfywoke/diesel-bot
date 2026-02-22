@@ -16,18 +16,28 @@ const client = new Client({
   }
 });
 
-client.on('message_create', async (message) => {
-  const chat = await message.getChat();
-  console.log("Chat:", chat.name || "Private");
-  console.log("Body:", message.body);
+client.on('qr', async (qr) => {
+  const url = await QRCode.toDataURL(qr);
+  console.log("OPEN THIS IN YOUR BROWSER:");
+  console.log(url);
 });
 
 client.on('ready', () => {
   console.log("WhatsApp bot is ready.");
 });
 
-client.on('message', message => {
-  console.log("Message received:", message.body);
+client.on('authenticated', () => {
+  console.log("Authenticated successfully.");
+});
+
+client.on('auth_failure', msg => {
+  console.log("Authentication failed:", msg);
+});
+
+client.on('message_create', async message => {
+  console.log("----- MESSAGE DETECTED -----");
+  console.log("From:", message.from);
+  console.log("Body:", message.body);
 });
 
 client.initialize();

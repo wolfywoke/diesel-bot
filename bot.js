@@ -16,14 +16,10 @@ const client = new Client({
   }
 });
 
-client.on('message', async message => {
+client.on('message_create', async (message) => {
   const chat = await message.getChat();
-
-  if (chat.isGroup) {
-    console.log("GROUP MESSAGE:");
-    console.log("Group Name:", chat.name);
-    console.log("Message:", message.body);
-  }
+  console.log("Chat:", chat.name || "Private");
+  console.log("Body:", message.body);
 });
 
 client.on('ready', () => {

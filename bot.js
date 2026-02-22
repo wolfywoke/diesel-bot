@@ -2,17 +2,15 @@ const { Client, LocalAuth } = require('whatsapp-web.js');
 
 console.log("Diesel bot starting...");
 
-const client = new Client({
-  authStrategy: new LocalAuth(),
-  puppeteer: {
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu'
-    ]
-  }
+const QRCode = require('qrcode');
+
+client.on('qr', async (qr) => {
+  console.log("Generating QR image...");
+
+  const url = await QRCode.toDataURL(qr);
+
+  console.log("OPEN THIS IN YOUR BROWSER:");
+  console.log(url);
 });
 
 client.on('qr', (qr) => {
